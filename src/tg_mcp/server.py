@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastmcp import FastMCP
 
 from tg_mcp.client import disconnect_all_clients
-from tg_mcp.config import get_server_settings, server_settings
+from tg_mcp.config import server_settings
 from tg_mcp.db import dispose_engine, init_db, session
 from tg_mcp.oauth import TgMcpOAuthProvider
 from tg_mcp.tools import (

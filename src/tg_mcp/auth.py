@@ -8,7 +8,7 @@ from fastmcp.server.dependencies import get_access_token
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from tg_mcp.config import get_server_settings, server_settings
+from tg_mcp.config import server_settings
 from tg_mcp.db import MCPSessionDep
 from tg_mcp.orm.oauth_client import OAuthClient
 

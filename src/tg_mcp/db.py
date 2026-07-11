@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from tg_mcp.config import get_server_settings, server_settings
+from tg_mcp.config import server_settings
 from tg_mcp.orm.base import Base
 
 

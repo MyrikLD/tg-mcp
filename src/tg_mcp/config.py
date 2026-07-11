@@ -1,4 +1,3 @@
-from functools import lru_cache
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -57,11 +56,6 @@ class ServerSettings(BaseSettings):
 
 
 settings = Settings()
-
-
-@lru_cache
-def get_server_settings() -> ServerSettings:
-    return ServerSettings()
 
 
 server_settings = ServerSettings()
