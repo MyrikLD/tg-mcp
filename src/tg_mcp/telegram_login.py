@@ -11,7 +11,6 @@ finishes or expires.
 
 import logging
 import time
-from dataclasses import dataclass
 
 from pydantic import BaseModel
 from telethon import TelegramClient
