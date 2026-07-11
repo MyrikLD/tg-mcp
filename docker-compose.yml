@@ -9,7 +9,6 @@ services:
       - ./data/postgres:/var/lib/postgresql
     ports:
       - "5432:5432"
-    restart: unless-stopped
 
   tg-mcp:
     image: ghcr.io/myrikld/tg-mcp:latest
@@ -25,4 +24,3 @@ services:
       - MCP_DB_URL=postgresql+asyncpg://tgmcp:tgmcp@postgres/tgmcp
     depends_on:
       - postgres
-    restart: unless-stopped

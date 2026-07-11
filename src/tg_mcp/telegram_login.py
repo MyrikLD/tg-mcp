@@ -44,13 +44,15 @@ class LinkedAccount(BaseModel):
     display_name: str | None
 
 
-@dataclass
 class _LinkAttempt(BaseModel):
     client: TelegramClient
     phone: str
     phone_code_hash: str
     needs_password: bool
     expires_at: float
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 class TelegramLinker:

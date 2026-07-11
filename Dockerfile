@@ -13,7 +13,7 @@ FROM python:3.12-slim AS runtime
 WORKDIR /app
 
 COPY --from=builder /app/.venv /app/.venv
-COPY tg_mcp/ tg_mcp/
+COPY src/tg_mcp/ tg_mcp/
 
 ENV PATH="/app/.venv/bin:$PATH" \
     MCP_HOST=0.0.0.0 \
