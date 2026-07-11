@@ -1,0 +1,16 @@
+.venv
+venv
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+.env
+*.session
+*.session-journal
+.ruff_cache
+.pytest_cache
+.mypy_cache
+.idea
+.mcp.json
+README.md
