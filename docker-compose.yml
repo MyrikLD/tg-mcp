@@ -1,4 +1,16 @@
 services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      - POSTGRES_USER=tgmcp
+      - POSTGRES_PASSWORD=tgmcp
+      - POSTGRES_DB=tgmcp
+    volumes:
+      - ./data/postgres:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
   tg-mcp:
     image: ghcr.io/myrikld/tg-mcp:latest
     build: .
@@ -10,4 +22,7 @@ services:
       - MCP_HOST=0.0.0.0
       - MCP_PORT=8000
       - MCP_PATH=/mcp
+      - MCP_DB_URL=postgresql+asyncpg://tgmcp:tgmcp@postgres/tgmcp
+    depends_on:
+      - postgres
     restart: unless-stopped

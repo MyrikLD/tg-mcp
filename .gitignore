@@ -224,3 +224,4 @@ __marimo__/
 
 # FastMCP
 .mcp.json
+data/*

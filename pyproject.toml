@@ -6,4 +6,8 @@ dependencies = [
     "fastmcp",
     "pydantic-settings",
     "telethon",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg",
+    "bcrypt",
+    "cryptography",
 ]
