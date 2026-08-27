@@ -1,4 +1,5 @@
 from fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 from telethon import TelegramClient
 
 from tg_mcp.client import TelegramClientDep
@@ -7,7 +8,14 @@ from tg_mcp.models import MeInfo
 mcp = FastMCP()
 
 
-@mcp.tool
+@mcp.tool(
+    annotations=ToolAnnotations(
+        readOnlyHint=True,
+        destructiveHint=False,
+        idempotentHint=True,
+        openWorldHint=True,
+    )
+)
 async def get_me(client: TelegramClient = TelegramClientDep) -> MeInfo:
     """Return information about the currently logged-in Telegram account."""
     me = await client.get_me()

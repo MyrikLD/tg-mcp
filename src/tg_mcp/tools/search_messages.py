@@ -1,4 +1,5 @@
 from fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 from telethon import TelegramClient
 
 from tg_mcp.client import TelegramClientDep, parse_chat
@@ -8,7 +9,14 @@ from tg_mcp.tools._common import message_info
 mcp = FastMCP()
 
 
-@mcp.tool
+@mcp.tool(
+    annotations=ToolAnnotations(
+        readOnlyHint=True,
+        destructiveHint=False,
+        idempotentHint=True,
+        openWorldHint=True,
+    )
+)
 async def search_messages(
     query: str,
     chat: str | None = None,

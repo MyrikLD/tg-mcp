@@ -1,13 +1,21 @@
 from fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 from telethon import TelegramClient
 
 from tg_mcp.client import TelegramClientDep
-from tg_mcp.models import DialogInfo
+from tg_mcp.models import DialogInfo, DialogType
 
 mcp = FastMCP()
 
 
-@mcp.tool
+@mcp.tool(
+    annotations=ToolAnnotations(
+        readOnlyHint=True,
+        destructiveHint=False,
+        idempotentHint=True,
+        openWorldHint=True,
+    )
+)
 async def list_dialogs(
     limit: int = 20,
     archived: bool = False,
@@ -23,10 +31,8 @@ async def list_dialogs(
             DialogInfo(
                 id=d.id,
                 name=d.name or "",
+                dialog_type=DialogType.get(d),
                 username=getattr(d.entity, "username", None),
-                is_user=d.is_user,
-                is_group=d.is_group,
-                is_channel=d.is_channel,
                 unread_count=d.unread_count,
                 last_message_date=d.date,
             )
