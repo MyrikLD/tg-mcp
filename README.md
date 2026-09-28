@@ -16,6 +16,14 @@ It's multi-account: anyone can register a login on the server and link their own
 
 `chat` arguments accept a numeric id, an `@username`, a phone number, or `"me"` (Saved Messages).
 
+## Resources
+
+| Resource | Description |
+| --- | --- |
+| `tg://chat/{chat_id}/message/{message_id}/media` | File attached to a message (photo, video, voice, document, ...) |
+
+Messages with an attachment carry a `media` object (type, MIME type, size, dimensions and the resource `uri`), and `get_chat_history` / `search_messages` also return a `resource_link` content block per attachment. Clients read the file through the MCP session, so no public download URL is ever issued. Files larger than `MCP_MEDIA_MAX_BYTES` are refused.
+
 ## Authentication
 
 The MCP endpoint is protected by a self-hosted OAuth 2.1 authorization server (no third-party IdP). When an MCP client connects, it's redirected through a browser flow:
@@ -81,6 +89,7 @@ All settings come from the environment (or `.env`).
 | `MCP_PATH` | `/mcp` | HTTP endpoint path |
 | `MCP_BASE_URL` | `http://127.0.0.1:8000` | Externally reachable base URL (OAuth issuer/audience, login links) |
 | `MCP_DB_URL` | `postgresql+asyncpg://tgmcp:tgmcp@localhost/tgmcp` | Async SQLAlchemy URL for Postgres |
+| `MCP_MEDIA_MAX_BYTES` | `20971520` | Largest attachment the media resource will return |
 | `MCP_DB_ECHO` | `false` | Log SQL statements |
 | `MCP_OAUTH_JWT_SECRET` | *(insecure default)* | Signs OAuth access/refresh tokens — change this |
 | `MCP_SESSION_ENCRYPTION_KEY` | — | Fernet key encrypting stored Telegram sessions |
@@ -117,6 +126,8 @@ tg_mcp/
 ├── orm/                       # SQLAlchemy models: User, OAuthClient, RevokedToken
 ├── dao/                       # data-access objects
 ├── utils/                     # OAuth protocol helpers
+├── resources/                 # FastMCP sub-servers exposing resources
+│   └── message_media.py
 └── tools/                     # one FastMCP sub-server per tool
     ├── get_me.py
     ├── list_dialogs.py

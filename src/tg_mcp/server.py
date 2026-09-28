@@ -7,6 +7,7 @@ from tg_mcp.client import disconnect_all_clients
 from tg_mcp.config import server_settings
 from tg_mcp.db import dispose_engine, init_db, session
 from tg_mcp.oauth import TgMcpOAuthProvider
+from tg_mcp.resources import message_media
 from tg_mcp.tools import (
     get_chat_history,
     get_me,
@@ -41,6 +42,7 @@ mcp.mount(list_dialogs)
 mcp.mount(get_chat_history)
 mcp.mount(send_message)
 mcp.mount(search_messages)
+mcp.mount(message_media)
 
 
 def main() -> None:

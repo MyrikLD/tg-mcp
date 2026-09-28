@@ -35,6 +35,11 @@ class ServerSettings(BaseSettings):
         "and for building login links. Must match how clients actually reach this server.",
     )
 
+    media_max_bytes: int = Field(
+        default=20 * 1024 * 1024,
+        description="Largest attachment the media resource will download and return",
+    )
+
     db_url: str = Field(
         default="postgresql+asyncpg://tgmcp:tgmcp@127.0.0.1:5432/tgmcp",
         description="Async SQLAlchemy URL for the Postgres database storing accounts, "

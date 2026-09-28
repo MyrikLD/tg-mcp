@@ -1,28 +1,30 @@
 from fastmcp import FastMCP
+from fastmcp.tools import ToolResult
 from mcp.types import ToolAnnotations
 from telethon import TelegramClient
 
 from tg_mcp.client import TelegramClientDep, parse_chat
 from tg_mcp.models import MessageInfo
-from tg_mcp.tools._common import message_info
+from tg_mcp.tools._common import MESSAGE_LIST_SCHEMA, message_info, message_list_result
 
 mcp = FastMCP()
 
 
 @mcp.tool(
+    output_schema=MESSAGE_LIST_SCHEMA,
     annotations=ToolAnnotations(
         readOnlyHint=True,
         destructiveHint=False,
         idempotentHint=True,
         openWorldHint=True,
-    )
+    ),
 )
 async def search_messages(
     query: str,
     chat: str | None = None,
     limit: int = 20,
     client: TelegramClient = TelegramClientDep,
-) -> list[MessageInfo]:
+) -> ToolResult:
     """Search messages by text.
 
     If `chat` is given, search only within that chat; otherwise search across
@@ -32,4 +34,4 @@ async def search_messages(
     messages: list[MessageInfo] = []
     async for msg in client.iter_messages(entity, search=query, limit=limit):
         messages.append(message_info(msg))
-    return messages
+    return message_list_result(messages)
