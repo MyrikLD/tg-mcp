@@ -25,7 +25,9 @@ async def search_messages(
     limit: int = 20,
     client: TelegramClient = TelegramClientDep,
 ) -> ToolResult:
-    """Search messages by text.
+    """Search messages by their text.
+
+    Only message bodies are matched, not chat or sender names.
 
     If `chat` is given, search only within that chat; otherwise search across
     all chats of the account.
